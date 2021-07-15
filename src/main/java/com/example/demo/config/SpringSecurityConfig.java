@@ -30,17 +30,27 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	*/
 	
 	//Security Based on URL
+	/*
+	 * @Override protected void configure(HttpSecurity http) throws Exception { //
+	 * TODO Auto-generated method stub http.csrf().disable();
+	 * http.authorizeRequests() .antMatchers("/rest/**") .fullyAuthenticated()
+	 * .and().httpBasic();
+	 */
+	
+	//Security based on roles
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
 		http.csrf().disable();
 		http.authorizeRequests()
-		.antMatchers("/rest/**")
+		.antMatchers("rest/**")
+		.hasAnyRole("ADMIN")
+		.anyRequest()
 		.fullyAuthenticated()
-		.and().httpBasic();
+		.and()
+		.httpBasic();
 	}
-	
 	
 	@Bean
 	public static NoOpPasswordEncoder passwordEncoder() {
